@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>节流</title>
+</head>
+<body>
+  <button id="button">点击</button>
+  <script>
+    function throttle(func,wait) {
+      let timerOut
+      return function() {
+        //第一次timerOut是undefined，第二次在wait时间内，timerOut不为空，所以不会调用func
+        if(!timerOut) {
+          timerOut = setTimeout(()=>{
+            timerOut = null
+            func()
+          },wait)
+        }
+      }
+    }
+    function handle() {
+      console.log(Math.random())
+    }
+    document.getElementById("button").onclick = throttle(handle,3000)
+    
+  </script>
+</body>
+</html>

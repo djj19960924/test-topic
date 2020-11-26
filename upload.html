@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    上传
+    <input onchange="changepic(this)" type="file" name="file" id="file" class="inputfile">
+    <script>
+        function changepic() {
+        var reads= new FileReader();
+        f=document.getElementById('file').files[0];
+        console.log('f:',f)
+        reads.readAsDataURL(f);
+        reads.οnlοad=function (e) {
+            document.getElementById('show').src=this.result;
+        };
+    }
+    </script>
+</body>
+</html>

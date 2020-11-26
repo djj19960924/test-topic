@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">点击我</button>
+  <script>
+    /**
+     * this
+     * 在执行时才能确认this的值，定义是无法确认
+    */
+    //1.普通函数
+    function fn() {
+      console.log(this) //window
+    }
+    fn()
+
+    //2.构造函数
+    function Person() {
+      this.name = name
+      console.log(this) //当前Person对象
+    }
+    let p = new Person()
+
+    //3.点击事件
+    document.getElementById("btn").onclick = function() {
+      console.log(this) //谁点击的就是谁
+    }
+    //4.作为对象属性时，this指向的是当前这个obj对象
+    let obj = {
+      name: 'zhangsan',
+      age: 20,
+      sayHi: function() {
+        console.log(`你好，我叫${this.name},今年${this.age}`)
+      }
+    }
+    obj.sayHi()
+    obj.sayHi.call({name:'wangwu',age:30})
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #outSide {
+            width: 540px;
+            padding: 20px;
+            background: lightblue;
+            margin: 0 auto;
+        }
+        
+        #outSide li {
+            width: 500px;
+            height: 50px;
+            background: lightcoral;
+            border: 1px solid lightgoldenrodyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="outSide">
+        <li style="width:100px;height:100px; border:1px solid black"></li>
+        <li style="width:100px;height:100px; border:1px solid black"></li>
+        <li style="width:100px;height:100px; border:1px solid black"></li>
+        <li style="width:100px;height:100px; border:1px solid black"></li>
+    </ul>
+    <input type="button" id="add" value="添加" />
+    <script>
+        // var oUl = document.getElementById("outSide");
+        // var aLi = oUl.getElementsByTagName("li");
+        // for(let i = 0; i < aLi.length;i++){
+        //    aLi[i].addEventListener('click',function(e){
+        //        let ev = e || window.event;
+        //        let target = ev.target || ev.srcElement;
+        //        console.log(target);
+        //    })
+        // }
+
+        //事件委托
+        let oUl = document.getElementById("outSide");
+        var aLi = oUl.getElementsByTagName("li");
+        var oBtn = document.getElementById("add");
+        oUl.addEventListener('click', function(e) {
+            let ev = e || window.event;
+            let target = ev.target || ev.srcElement;
+            for (let i = 0; i < aLi.length; i++) {
+                if (aLi[i] == target) {
+                    console.log(i + 1);
+                }
+            }
+        })
+        oBtn.addEventListener('click', function() {
+            var new_li = document.createElement("li");
+            new_li.innerHTML = "new li";
+            oUl.appendChild(new_li);
+        })
+    </script>
+
+</body>
+
+</html>

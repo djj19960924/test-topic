@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖</title>
+</head>
+<body>
+  <input type="text" id="input">
+  <script>
+    //js闭包的经典应用
+    function debounce(fun,delay) {
+      let timer
+      //闭包：可以让变量一直保存在内存当中，造成内存泄露
+      return function(args) {
+        clearInterval(timer)
+        timer = setTimeout(()=>{
+          fun(args)
+        },delay)
+      }
+    }
+    function inputFun(value) {
+      console.log(`你输出的结果是${value}`)
+    }
+    const input = document.getElementById("input")
+    const deboundceInput = debounce(inputFun,500)
+    input.addEventListener("keyup",function(e){
+      deboundceInput(e.target.value)
+    })
+  </script>
+</body>
+</html>

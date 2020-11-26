@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Document</title>
+    <style>
+        html{
+            max-width: 640px;
+            margin: 0px auto;
+            font-size: 10px;
+        }
+        .alipay{
+            margin: 0 auto;
+            text-align:center;
+        }
+        .order{
+            margin:0 auto;
+            display:flex;
+            font-size:2rem;
+            justify-content: space-between;
+            width:30rem;
+            margin-top:15rem;
+        }
+        .amount{
+            margin-top:20px;
+        }
+        #btn{
+            margin-top:150px;
+            display:inline-block;
+            width: 230px;
+            height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 1.17rem;
+            background: linear-gradient(to right,#7983FF,#71CEFF),0,#fff;
+            color:#fff;
+        }
+
+        .addTips{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            box-sizing: content-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;  
+            font-size:3.2rem; 
+        }
+
+        .mask{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+            z-index: 5;
+            background: #ccc;
+            text-align:center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        };
+
+        .content{
+            color: black;
+            position: absolute;
+            
+        }
+        .open{
+            margin-top:11rem
+        }
+        .guide{
+            height:8rem;
+            width:8.95rem;
+            position: absolute;
+            top:1.5rem;
+            right:1rem
+        }
+        #backTo{
+            margin-top:100px;
+            display:inline-block;
+            width: 230px;
+            height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 1.17rem;
+            background: linear-gradient(to right,#7983FF,#71CEFF),0,#fff;
+            color:#fff;
+        }
+
+        #prompt{
+            margin-top:150px;
+        }
+        .promptText{
+           color:red;
+           font-size:18px;
+           margin:0px 50px;
+        }
+
+        
+    </style>
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+    <div class="alipay">
+        <!-- <div class="title">支付宝支付</div> -->
+        <div class="order" id="orderNum">
+            <div>订单编号：</div>
+        </div>
+        <div class="order amount" id="payAmount">
+            <div>支付金额：</div>
+        </div>
+        <div id="btn">支付宝支付</div>     
+    </div>
+
+    <div class="addTips" id="addTips">
+        <div class="mask">
+            <div class="content">
+                <div class="open">请选择在浏览器内</div>
+                <div>打开该页面</div>
+                <img src="./guide.png" class="guide"/>
+                <div id="prompt">
+                    <div class="promptText">
+                        支付未完成打开支付宝继续支付,
+                        支付完成请点击返回按钮
+                    </div>
+                    <div id='backTo'>支付完成返回</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            function is_weixin(){
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == "micromessenger"){
+                    return true;
+                }else{
+                    return false;
+                }
+            };
+            window.onblur = function(){
+                $("#prompt").show();
+            }
+            $("#backTo").click(()=>{
+                window.location.href = "http://47.98.221.129/wxh5";
+            })
+            var orderNum = location.href.split('?')[1].split('&')[0].split('=')[1];
+            var payAmount = location.href.split('?')[1].split('&')[1].split('=')[1];
+            var customerId = location.href.split('?')[1].split('&')[2].split('=')[1];
+            $("#orderNum").append(`<div id="orderNum">${orderNum}</div>`);
+            $("#payAmount").append(`<div id="payAmount">${payAmount}元</div>`);
+            $("#addTips").css('display','none');
+            $("#prompt").css('display','none');
+            $("#btn").click(()=>{
+                if(is_weixin()){
+                    $("#addTips").show();
+                }else{
+                    var data = {
+                        "orderSn":orderNum,
+                        "payType":1,
+                        "customerId":customerId
+                    };
+                    $.ajax({
+                        type : "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        url : "http://47.98.221.129:8000/pay-service/pay/payAmount",
+                        data : JSON.stringify(data),
+                        success : function(r) {
+                            const form = r.data
+                            const div = document.createElement('div')
+                            div.id = 'alipay'
+                            div.innerHTML = form
+                            document.body.appendChild(div)
+                            document.querySelector('#alipay').children[0].submit();
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="img-area">
+            <img class="my-photo" alt="loading" data-src="./img/img1.png">
+        </div>
+        <div class="img-area">
+            <img class="my-photo" alt="loading" data-src="./img/img2.png">
+        </div>
+        <div class="img-area">
+            <img class="my-photo" alt="loading" data-src="./img/img3.png">
+        </div>
+        <div class="img-area">
+            <img class="my-photo" alt="loading" data-src="./img/img4.png">
+        </div>
+        <div class="img-area">
+            <img class="my-photo" alt="loading" data-src="./img/img5.png">
+        </div>
+    </div>
+
+    <script>
+        if(window.addEventListener){
+            window.addEventListener('scroll',lazyload);
+        }else {
+            window.attachEvent('onscroll',lazyload);
+        }
+        imgLazy("#page")
+        function imgLazy(ele) {
+            let scrollElement = document.querySelector(ele);
+            lazyload()
+        }
+        function lazyload(){
+            let viewH = document.documentElement.clientHeight
+            let nodes = document.querySelectorAll('img[data-src]')
+            Array.from(nodes).forEach((item,index)=>{
+                if(item.dataset.src==='') return
+                //用于获取某个元素相对于视窗的位置集合,集合中有top, right, bottom, left等属性
+                let rect = item.getBoundingClientRect()
+                if(rect.bottom>=0&&rect.top<viewH){
+                    let img = new Image()
+                    img.onload = function(){
+                        item.src = img.src
+                    }
+                    img.src = item.dataset.src;
+                    item.dataset.src = ''
+                }
+                
+
+            })
+        }
+        
+    </script>
+</body>
+
+</html>

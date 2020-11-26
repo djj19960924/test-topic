@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     * call、apply、bind的使用和区别
+     * call:Function.call(obj[,param1[,param2[.param3...]]])
+     * apply:Function.apply(obj[,araArray])
+     * bind:Function.bind(obj[,param1[,param2,[,param3...]]])
+     * bind返回值是函数，并且需要稍后调用，才会执行
+    */
+    var func = function(arg1,arg2) {
+      this.value1 = arg1
+      this.value2 = arg2
+      console.log(this)
+    } 
+    // func(1,2) //window
+    // console.log(func.value1,func.value2) //undefined
+    // console.log(window.value1,window.value2) //1 2
+    func.call(func,'值1','值2')
+    //console.log(func.value1,func.value2) //'值1' '值2'
+    //console.log(window.value1,window.value2) //undefined
+    func.apply(func,['值1','值2'])
+    console.log(func.value1,func.value2)
+
+    {
+      //小测试
+      let fun = function() {
+        console.log(this) //zhangsan
+        console.log(typeof this) //object
+        console.log(this instanceof String) //true
+      }
+      fun.call('zhangsan')
+    }
+    {
+      //求最大值
+      let numbers = [11,33,77,22,111]
+      //Math max()最大值min最小值
+      let maxNumber = Math.max.apply(null,numbers)
+      console.log(maxNumber)
+      let minNumber = Math.min.call(null,...numbers)
+      console.log(minNumber)
+    }
+    {
+      //bind() 改变this指向的
+      //返回一个函数，需要再次调用才可以
+      let fn = function() {
+        console.log(this.x)
+      }
+      let obj = {
+        x:1000
+      }
+      let result = fn.bind(obj)()
+    }
+  </script>
+</body>
+</html>

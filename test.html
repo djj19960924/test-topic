@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function deepClone(obj){
+            let newobj = null;
+            debugger
+            if(typeof(obj) === 'object' && obj !== null){ 
+                newobj = obj instanceof Array? [] : {};   
+                for(var i in obj){  
+                    newobj[i] = arguments.callee(obj[i])
+                }
+            }else{
+                newobj = obj
+            }    
+            return newobj;    //函数必须有返回值，否则结构为undefined
+        }
+        var obj1 = {
+            name:'test',
+            main:{
+                a:1
+            },
+            fn:function(){},
+            friends:[1,2,[1,2]]
+        }
+        var obj2 = deepClone(obj1)
+        console.log(obj2)
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function add(arg1,arg2){
+      math.config({
+        number: 'BigNumber'
+      });
+      var result = math.parser().eval(arg1+"+"+arg2)
+      console.log(result)
+    }
+    add(0.1,0.2);
+  </script>
+</body>
+</html>
+
+

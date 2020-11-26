@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  body,
+  html {
+    height: 100%;
+  }
+
+
+  .content {
+    height: 100%;
+    display: flex;
+  }
+
+  .div1 {
+    background-color: aqua;
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+  }
+
+  .l-t {
+    height: 140px;
+    background-color: brown;
+  }
+
+  .l-b {
+    clear: both;
+    overflow: hidden;
+    height: 100%;
+    float: left;
+  }
+
+  .left {
+    width: 60px;
+    float: left;
+    background-color: darkcyan;
+    height: 100%;
+  }
+
+  .right {
+    width: 340px;
+    float: left;
+    background-color: chartreuse;
+    height: 100%;
+  }
+
+  .div2 {
+    background-color: blanchedalmond;
+    display: inline-block;
+    flex: 1;
+  }
+
+  .div3 {
+    background-color: blueviolet;
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+  }
+</style>
+
+<body>
+  <div class="content">
+
+
+    <div class="div1">
+      <div class="l-t">
+      </div>
+      <div class="l-b">
+        <div class="left">
+        </div>
+        <div class="right">
+        </div>
+      </div>
+    </div>
+    <div class="div2">2</div>
+    <div class="div3">3</div>
+  </div>
+</body>
+
+</html>

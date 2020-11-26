@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0
+    }
+    #test {
+      width: 8rem;
+      height: 8rem;
+      background-color: pink;
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="test">test</div>
+  <script>
+    var html = document.querySelector("html")
+    //1rem = html.style.fontSize
+    //布局视口的宽度就是16rem
+    //设计图的宽度就是16rem
+    html.style.fontSize = document.documentElement.clientWidth/16 + 'px'
+  </script>
+</body>
+</html>

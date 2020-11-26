@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>flex布局实现</title>
+	<style type="text/css">
+		html,body {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+		.container {
+			display: flex;
+			height: 100%;
+			width: 100%;
+			flex-direction: column;
+		}
+		.header {
+			height: 100px;
+			background: red;
+		}
+		.footer {
+			height: 100px;
+			background: yellow;
+		}
+		.main {
+			background: #ccc;
+			overflow: auto;
+			display: flex;
+			flex-direction: row;
+			flex:1
+		}
+		.leftDiv{
+			flex:1;
+			border: 1px solid red;
+		}
+		.rightDiv{
+			flex:1;
+			border: 1px solid red;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="header">header</div>
+		<div class="main">
+			<div class="leftDiv">
+				leftDiv
+			</div>
+			<div class="rightDiv">
+				rightDiv
+			</div>
+		</div>
+		<div class="footer">footer</div>
+	</div>
+
+</body>
+
+</html>
